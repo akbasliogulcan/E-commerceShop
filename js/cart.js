@@ -1,4 +1,4 @@
-import { getFromLocalStorage, saveToLocalStorage } from "./helper.js";
+import { getFromLocalStorage, saveToLocalStorage, updateCartIcon } from "./helper.js";
 let cart = getFromLocalStorage();
 
 
@@ -38,6 +38,9 @@ const addToCart = (e, products) => {
                               };
                               //sepet dizisine oluşturulan elemanı ekle
                               cart.push(cartItem);
+
+                              //sepetteki ürün miktarını renderla
+                              updateCartIcon(cart);
                     }
 
           };
@@ -74,7 +77,35 @@ const removeFromCart = () => {
 
 };
 
-export { addToCart, removeFromCart };
+//sepetteki ürünlerin miktarını güncelleyen fonksiyon
+const onQuantityChange = (e) => {
+
+          //yeni miktara eriş 
+          const newQuantity = parseInt(e.target.value);  //kutucuğun içi
+          //güncellenecek elemanın id'sine eriş
+          const productId = parseInt(e.target.dataset.id);
+
+          //yeni miktar 0 dan büyükse güncellecenekc elemanın miktiranı güncelle .yani sepette ürünler 0 dan büyük olmak zorunda 
+          if (newQuantity > 0) {
+
+
+
+                    //güncellenecek  elamaı dizi içseriden bul
+                    const updateItem = cart.find((item) => item.id === productId);
+
+                    //güncellenecek elemanın miktarını güncelle
+                    updateItem.quantity = newQuantity;
+
+                    //localstorage güncelle
+                    saveToLocalStorage(cart);
+                    //sepetteki ürün miktarını renderla
+                    calculateCartItems(cart);
+          };
+
+};
+
+
+export { addToCart, removeFromCart, onQuantityChange };
 
 //! yorum : addtocart fonskiyonunu main.js de renderProducts(products, (e) = addToCart(e, products);  }); şeklinde çağırıyoruz. Bu fonksiyonun içindeki e parametresi bizim tıkladığımız butonun kendisidir. Bu butonun data-id attribute'undan ürün id'sini alıyoruz. Bu id'yi kullanarak ürünü sepete ekliyoruz.
 //! yorum : Bu fonksiyonu cart.js dosyasında yazmamızın sebebi ise bu fonksiyonun sadece sepet işlemleri ile ilgili olmasıdır. Bu fonksiyonun main.js dosyasında olması gereksiz olurdu.

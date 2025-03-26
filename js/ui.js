@@ -1,4 +1,4 @@
-import { removeFromCart } from "./cart.js";
+import { onQuantityChange, removeFromCart } from "./cart.js";
 import { saveToLocalStorage, getFromLocalStorage } from "./helper.js";
 
 // Ui elemanlarının tutulduğu obje
@@ -87,7 +87,18 @@ const renderCartItems = (cart) => {
     removeButton.addEventListener("click", (removeFromCart) => { }   //removeFromCart fonksiyonu burada çağrılacak
     );
   }
+  // Quantity inputlarına eriş
+  const quantityInputs = document.querySelectorAll(".cart-item-quantity");
+
+  // QuantityInputlarına eriş ve herbirine bir olay izleyicisi ekle
+
+  for (let k = 0; k < quantityInputs.length; k++) {
+    const quantityInput = quantityInputs[k];
+
+    quantityInput.addEventListener("change", onQuantityChange);
+  }
 };
+
 
 export { elements, renderProducts, renderCartItems };
 

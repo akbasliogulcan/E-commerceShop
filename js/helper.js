@@ -18,4 +18,28 @@ const getFromLocalStorage = () => {
           return strData ? JSON.parse(strData) : [];
 };
 
-export { saveToLocalStorage, getFromLocalStorage };
+
+// //sepetteki toplam ürün adedini hesaplayan fonksiyon
+// const calculateCartItems = (cart) => {
+
+//           //dizideki ürün sayısını hesaplamalı
+
+//           return cart.reduce((total, item) => total + item.quantity, 0);        
+
+// };
+
+//Sepetteki ürğn miktarını  sepet ikonuna render eden fonksiyon
+const updateCartIcon = (cart) => {
+          //sepet ikonuna eriş
+          const cartIcon = document.querySelector('#cart-icon')
+
+          //sepetteki toplam ürün miktarına eriş 
+          const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+
+          //sepet ikonu yanında toplam ürün miktarını render et
+          cartIcon.setAttribute("data-quantitiy", totalQuantity)
+};
+
+
+
+export { saveToLocalStorage, getFromLocalStorage, updateCartIcon };
