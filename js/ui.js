@@ -1,16 +1,16 @@
 import { onQuantityChange, removeFromCart } from "./cart.js";
-import { saveToLocalStorage, getFromLocalStorage } from "./helper.js";
 
-// Ui elemanlarının tutulduğu obje
+// Ui elemanlarının tutulduğu obje   //!4.
 const elements = {
   menuIcon: document.querySelector("#menu-icon"),
   menu: document.querySelector(".navbar"),
   productList: document.querySelector("#product-list"),
   cartContainer: document.querySelector("#cart-items"),
+  cartTotal: document.querySelector("#cart-total"),
 
 };
 
-//ürününü kartlarını render eden fonksiyon
+//ürününü kartlarını render eden fonksiyon   //!5.
 const renderProducts = (products, addToCartFunction) => {
 
   const productsHtml = products.map(
@@ -35,24 +35,24 @@ const renderProducts = (products, addToCartFunction) => {
   //oluşturulan htmli arayüze aktar
   //   Bu kod satırı, elements.productList adlı bir HTML öğesinin innerHTML özelliğini productsHtml değişkeninin içeriğiyle günceller.Yani:
   // productsHtml değişkeninde HTML kodu varsa, bu kod elements.productList içine eklenir.Önceki içerik tamamen silinir ve yerine yeni HTML kodu gelir.
-  elements.productList.innerHTML = productsHtml;
+  elements.productList.innerHTML = productsHtml;  //!6.
 
   // Classı add-to-cart olan elemanlara eriş   .Bunu burada yazmamızın nedeni add to cart ın  renderProducts içinde olması .
-  const addToCartButtons = document.querySelectorAll(".add-to-cart");
+  const addToCartButtons = document.querySelectorAll(".add-to-cart");  //!7.
   // querySelectorAll metodu erişilen elemanları bir dizi şeklinde döndürdüğünden bu elemana direkt addEventListener ekleyemeyiz.
   // Bunun için dizi içerisindeki elemanlara teker teker erişmemiz gerek
 
-  for (let i = 0; i < addToCartButtons.length; i++) {
+  for (let i = 0; i < addToCartButtons.length; i++) {   //!8.
     // Dizinin içerisindeki butonlara teker teker eriş
     const addToCartButton = addToCartButtons[i];
 
-    // Erişilen elemana bir click olayı ekle
+    // Erişilen elemana bir click olayı ekle   //!9.
     addToCartButton.addEventListener("click", addToCartFunction);
   }
 
 };
 
-//sepetteki ürünleri renderlayan fonksiyon
+//sepetteki ürünleri renderlayan fonksiyon  //!14.
 const renderCartItems = (cart) => {
   elements.cartContainer.innerHTML = cart
     .map(
@@ -84,8 +84,8 @@ const renderCartItems = (cart) => {
   for (let i = 0; i < removeButtons.length; i++) {
     //remove butonlara eriş
     const removeButton = removeButtons[i];
-    removeButton.addEventListener("click", (removeFromCart) => { }   //removeFromCart fonksiyonu burada çağrılacak
-    );
+    removeButton.addEventListener("click", removeFromCart);  //removeFromCart fonksiyonu burada çağrılacak
+
   }
   // Quantity inputlarına eriş
   const quantityInputs = document.querySelectorAll(".cart-item-quantity");

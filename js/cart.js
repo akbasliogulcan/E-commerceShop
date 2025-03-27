@@ -1,28 +1,29 @@
-import { getFromLocalStorage, saveToLocalStorage, updateCartIcon } from "./helper.js";
+import { getFromLocalStorage, saveToLocalStorage, updateCartIcon, displayCartTotal } from "./helper.js";
+import { renderCartItems } from "./ui.js";
 let cart = getFromLocalStorage();
 
 
 
 //sepete ürün ekleyen fonksiyon
-const addToCart = (e, products) => {
+const addToCart = (e, products) => {  //!10.
 
           // add-to-cart butonların tıklandığında butonları birbirinden ayırt etmek için bunlara data-id ile birer uniq id atadık.
           // Bu sayede bu butonların birbirinde farklı olmasını sağladık.
 
-          // Tıklanılan elemanı  id'sine eriş
+          // Tıklanılan elemanı  id'sine eriş //!.11
           const productId = +e.target.dataset.id; //+ işareti string olan id'yi number'a çevirir.
 
 
           // Id'si bilinen ürünü product dizisi içerisinden bul
           const product = products.find((product) => product.id === productId);
 
-
-          //*ürün sepette var mı yoksa yeni mi ekleniyor kontrol eden kod.
+          //!12.
+          //*ürün sepette var mı yoksa yeni mi ekleniyor kontrol eden kod.  
           if (product) {//ürün sepette var mı ?
                     //ürün sepette var mı?  varsa bul.
                     const exitingItem = cart.find((item) => item.id === productId);
                     if (exitingItem) {
-                              //ürün sepette varsa sepettteki ürünün adetini 1 arttır.
+                              //ürün sepette varsa sepettteki ürünün adetini 1 arttır.  //quantity sepetteki ürünün adeti demektir
                               exitingItem.quantity++;
                     }
 
@@ -41,6 +42,8 @@ const addToCart = (e, products) => {
 
                               //sepetteki ürün miktarını renderla
                               updateCartIcon(cart);
+
+
                     }
 
           };
@@ -54,14 +57,14 @@ const addToCart = (e, products) => {
 
           // 3s sonra add to cart butonunun içeriğini tekrar eski haline getir.
 
-          setTimeout(() => {
+          setTimeout(() => {   //!13.
                     e.target.innerText = "Add to cart";
           }, 2000);
 
 };
 
 //sepetten ürün kaldiran fonksiyon
-const removeFromCart = () => {
+const removeFromCart = (e) => {
           //tıklanılan butonun id'sine eriş
           const productId = parseInt(e.target.dataset.id);
 
@@ -73,6 +76,12 @@ const removeFromCart = () => {
 
           //arayüzü renderla
           renderCartItems(cart);
+
+          //sepetteki irin miktarını renderla
+          updateCartIcon(cart);
+
+          //sepetteki toplam  ürün  fiyatını renderla
+          displayCartTotal(cart);
 
 
 };
@@ -98,8 +107,13 @@ const onQuantityChange = (e) => {
 
                     //localstorage güncelle
                     saveToLocalStorage(cart);
-                    //sepetteki ürün miktarını renderla
+                    //sepetteki ürün miktarını renderla     
                     calculateCartItems(cart);
+
+                    //sepetteki toplam  ürün  fiyatını renderla
+                    displayCartTotal(cart);
+
+
           };
 
 };

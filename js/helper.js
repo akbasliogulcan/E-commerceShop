@@ -19,14 +19,7 @@ const getFromLocalStorage = () => {
 };
 
 
-// //sepetteki toplam ürün adedini hesaplayan fonksiyon
-// const calculateCartItems = (cart) => {
 
-//           //dizideki ürün sayısını hesaplamalı
-
-//           return cart.reduce((total, item) => total + item.quantity, 0);        
-
-// };
 
 //Sepetteki ürğn miktarını  sepet ikonuna render eden fonksiyon
 const updateCartIcon = (cart) => {
@@ -40,6 +33,23 @@ const updateCartIcon = (cart) => {
           cartIcon.setAttribute("data-quantitiy", totalQuantity)
 };
 
+//sepetteki toplam fiyatı hesaplayan fonksiyon
+const calculateCartTotal = (cart) => {
+          return cart.reduce(
+                    (total, product) => total + product.price * product.quantity,
+                    0
+          );
+};
 
 
-export { saveToLocalStorage, getFromLocalStorage, updateCartIcon };
+//sepetteki ürünleri renderlayan fonksiyon
+const displayCartTotal = (cart) => {
+          //toplam ürün fiyatını hesaplayan fonk.çalıştır
+          const total = calculateCartTotal(cart);
+          //Sepetteki toplam ürün miktarını render et (ekrana bastır) 
+          elements.cartTotal.textContent = `Total: $ ${total.toFixed(2)}`;  //toFixed(2) virgülden sonrasını kısaltır
+
+
+};
+
+export { saveToLocalStorage, getFromLocalStorage, updateCartIcon, calculateCartTotal, displayCartTotal };

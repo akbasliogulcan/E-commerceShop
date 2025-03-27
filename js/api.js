@@ -5,7 +5,7 @@ const fetchProducts = async () => {
 
                     // Gelen veriyi js nesnesine çevir
                     const data = await res.json();
-                    // Veriyi fonksiyon çağırıldığında return et
+                    // Veriyi fonksiyon çağırıldığında return et (geri döndür)
                     return data;
           } catch (err) {
                     alert(`Error: ${err}`);

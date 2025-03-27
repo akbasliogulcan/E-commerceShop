@@ -1,6 +1,6 @@
 import fetchProducts from "./api.js";
 import { addToCart } from "./cart.js";
-import { getFromLocalStorage, updateCartIcon } from "./helper.js";
+import { getFromLocalStorage, updateCartIcon, displayCartTotal } from "./helper.js";
 import { elements, renderCartItems, renderProducts } from "./ui.js";
 
 
@@ -18,20 +18,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-
-          // Sepetteki ürünleri render et
-          renderCartItems(cart);
-
-          // ? Hangi sayfadayız ?
-          if (window.location.pathname.includes("/Projeler/e-commerce/cart.html")) {
+          // ? Hangi sayfadayız ?  
+          //! 1.
+          if (window.location.pathname.includes("/cart.html")) {
                     // * Sepet Sayfası İşlemleri
-                    const cart = getFromLocalStorage();
+                    // const cart = getFromLocalStorage();
+                    renderCartItems(cart);
+                    // Sepetteki toplam ürün fiyatını renderla
+                    displayCartTotal(cart);
+
+
           } else {
-                    // * Ana Sayfa İşlemleri  (api ya istek atılmalı ve veriler çekilmeli)
-                    fetchProducts().then((products) => {
+                    // * Ana Sayfa İşlemleri  (api ya istek atılmalı ve veriler çekilmeli (renderlanmalı))
+                    fetchProducts().then((products) => {   //!2.
                               //aşağıdaki kod, bir ürün listesini render eden (renderProducts) bir fonksiyonu çağırıyor ve her ürüne tıklandığında addToCart fonksiyonunu çalıştıran bir olay işleyicisi (callback function) ekliyor.
-                              renderProducts(products, (e) => {
+                              renderProducts(products, (e) => {  //!3.
                                         addToCart(e, products);
                               });
                     })
