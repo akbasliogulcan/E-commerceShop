@@ -287,6 +287,49 @@ header .nav .bxs-shopping-bag::after {
   white-space: nowrap;
 }
 
+.footer {
+  background-color: #273ea1;
+  padding: 40px 10px;
+  margin-top: 50px;
+}
+.footer-c {
+  display: grid;
+  grid-template-columns: 60% 20% 20%;
+  gap: 16px;
+}
+.footer-box {
+  display: flex;
+  flex-direction: column;
+}
+.footer-box h2 {
+  font-size: 128px;
+  color: #fff;
+  text-transform: uppercase;
+}
+.footer-box .social {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+.footer-box .social i {
+  background-color: #fff;
+  font-size: 20px;
+  padding: 10px;
+  color: #273ea1;
+  border-radius: 50%;
+}
+.footer-box h3 {
+  color: #fff;
+}
+.footer-box a {
+  color: #fff;
+  padding-top: 30px;
+}
+.footer .copyright {
+  padding-top: 30px;
+  color: #fff;
+}
+
 * {
   margin: 0;
   padding: 0;
